@@ -3,4 +3,4 @@ import { RecordSetter, RecordSetterOptions, RecordProperty } from "./record-sett
 import { RecordStore, RecordStoreOptions } from "./record-store.ts";
 
 
-export { DataRecord, RecordSetter, RecordSetterOptions, RecordProperty, RecordStore, RecordStoreOptions }
+export { DataRecord, RecordSetter, type RecordSetterOptions, type RecordProperty, RecordStore, type RecordStoreOptions }
