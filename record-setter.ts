@@ -55,12 +55,12 @@ export class RecordStore<T extends DataRecord = DataRecord>
             const transaction = this.openTransaction('readonly');
             const objectStore = transaction.objectStore(this.#storeName);
             const request = objectStore.get(id);
-            request.onsuccess = (event) =>
+            request.onsuccess = (event: Event) =>
             {
                 const value = (event.target as unknown as { result: T|null }).result;
                 resolve(value);
             }
-            request.onerror = (event) => { reject(event); }
+            request.onerror = (event: Event) => { reject(event); }
         });
 
     }
@@ -75,12 +75,12 @@ export class RecordStore<T extends DataRecord = DataRecord>
             {
                 const objectStore = transaction.objectStore(this.#storeName);
                 const request = objectStore.get(id);
-                request.onsuccess = (event) =>
+                request.onsuccess = (event: Event) =>
                 {
                     const value: T = (event.target as unknown as { result: T }).result;
                     resolve(value);
                 }
-                request.onerror = (event) => { reject(event); }
+                request.onerror = (event: Event) => { reject(event); }
             }));
         }
 
@@ -99,7 +99,7 @@ export class RecordStore<T extends DataRecord = DataRecord>
             const transaction = this.openTransaction('readonly')
             const objectStore = transaction.objectStore(this.#storeName);
             const request = objectStore.getAll();
-            request.onsuccess = (event) =>
+            request.onsuccess = (event: Event) =>
             {
                 let value: T[] = (event.target as unknown as { result: T[] }).result;
                 if(sortKey != null)
@@ -109,7 +109,7 @@ export class RecordStore<T extends DataRecord = DataRecord>
                 }
                 resolve(value);
             }
-            request.onerror = (event) => { reject(event); }
+            request.onerror = (event: Event) => { reject(event); }
         });
     }
     async query(equalityPredicate: { [key: string]: unknown; }, sortKey?: string | undefined):Promise<T[]>
@@ -159,7 +159,7 @@ export class RecordStore<T extends DataRecord = DataRecord>
             }
 
             const results: T[] = [];
-            request.onsuccess = (event) =>
+            request.onsuccess = (event: Event) =>
             {
                 const currentCursor = (event.target as unknown as { result: { value: T, continue: () => void } }).result;
                 
@@ -213,7 +213,7 @@ export class RecordStore<T extends DataRecord = DataRecord>
 
                 currentCursor.continue();
             }
-            request.onerror = (event) => { reject(event); }
+            request.onerror = (event: Event) => { reject(event); }
         });
 
     }
@@ -225,18 +225,18 @@ export class RecordStore<T extends DataRecord = DataRecord>
             const transaction = this.openTransaction();
             const objectStore = transaction.objectStore(this.#storeName);
             const request = objectStore.put(record);
-            request.onsuccess = async (event) =>
+            request.onsuccess = async (event: Event) =>
             {
                 const updatedRecordId = (event.target as unknown as { result: string }).result;
                 const getRequest = objectStore.get(updatedRecordId);
-                getRequest.onerror = (event) => { reject(event); }
-                getRequest.onsuccess = (event) =>
+                getRequest.onerror = (event: Event) => { reject(event); }
+                getRequest.onsuccess = (event: Event) =>
                 {
                     const updatedRecord = (event.target as unknown as { result: T }).result;
                     resolve(updatedRecord);
                 }
             }
-            request.onerror = (event) => { reject(event); }
+            request.onerror = (event: Event) => { reject(event); }
         });
     }
     async updateRecords(records: T[]):  Promise<T[]>
@@ -250,12 +250,12 @@ export class RecordStore<T extends DataRecord = DataRecord>
             {
                 const objectStore = transaction.objectStore(this.#storeName);
                 const request = objectStore.put(record);
-                request.onsuccess = (event) =>
+                request.onsuccess = (event: Event) =>
                 {
                     const value = (event.target as unknown as { result: string }).result;
                     resolve(value);
                 }
-                request.onerror = (event) => { reject(event); }
+                request.onerror = (event: Event) => { reject(event); }
             }));
         }
 
@@ -275,12 +275,12 @@ export class RecordStore<T extends DataRecord = DataRecord>
             const transaction = this.openTransaction();
             const objectStore = transaction.objectStore(this.#storeName);
             const request = objectStore.delete(id);
-            request.onsuccess = (event) =>
+            request.onsuccess = (event: Event) =>
             {
                 const value = (event.target as unknown as { result: boolean }).result;
                 resolve(value);
             }
-            request.onerror = (event) => { reject(event); }
+            request.onerror = (event: Event) => { reject(event); }
         });
     }
     removeRecords(ids: string[], overrideSoftDelete: boolean = false):  Promise<boolean[]>
@@ -315,8 +315,8 @@ export class RecordStore<T extends DataRecord = DataRecord>
             };
             removeRecord(0);
 
-            transaction.onabort = function(event) { console.log("Transaction Aborted"); reject(event); };
-            transaction.oncomplete = function(event) 
+            transaction.onabort = function(event: Event) { console.log("Transaction Aborted"); reject(event); };
+            transaction.oncomplete = function(event: Event) 
             { 
                 // console.log('Transaction Completed');
                 const value = (event.target as unknown as { result: boolean[] }).result;
@@ -353,12 +353,12 @@ export class RecordStore<T extends DataRecord = DataRecord>
             const transaction = this.openTransaction();
             const objectStore = transaction.objectStore(this.#storeName);
             const request = objectStore.clear();
-            request.onsuccess = (event) =>
+            request.onsuccess = (event: Event) =>
             {
                 const value = (event.target as unknown as { result: unknown }).result;
                 resolve(value);
             }
-            request.onerror = (event) => { reject(event); }
+            request.onerror = (event: Event) => { reject(event); }
         });
     }
 
@@ -395,7 +395,7 @@ export class RecordSetter
         return new Promise<void>((resolve, reject) =>
         {                
             const request = indexedDB.open(options.name, options.version);
-            request.onsuccess = (event) =>
+            request.onsuccess = (event: Event) =>
             {
                 const dbEvent = event.target as unknown as { result: IDBDatabase|undefined };
                 this.#database = dbEvent.result;
@@ -415,7 +415,7 @@ export class RecordSetter
                 resolve();
             };
 
-            request.onerror = (event) => { reject(event); }
+            request.onerror = (event: Event) => { reject(event); }
 
         });
     }
@@ -437,11 +437,11 @@ export class RecordSetter
             {
                 this.#keyValueTableName = options.keyValueTableName ?? this.#keyValueTableName;
                 const objectStore = this.#database!.createObjectStore(this.#keyValueTableName, { keyPath: "key" });
-                objectStore.transaction.oncomplete = (_event) =>
+                objectStore.transaction.oncomplete = (_event: Event) =>
                 {
                     resolve();
                 }
-                objectStore.transaction.onerror = (event) =>
+                objectStore.transaction.onerror = (event: Event) =>
                 {
                     reject(event);
                 }
@@ -492,11 +492,11 @@ export class RecordSetter
                         objectStore.createIndex(pathName, pathName, {unique: isUnique, multiEntry: true });
                     }
                 }
-                objectStore.transaction.oncomplete = (_event) =>
+                objectStore.transaction.oncomplete = (_event: Event) =>
                 {
                     resolve();
                 }
-                objectStore.transaction.onerror = (event) =>
+                objectStore.transaction.onerror = (event: Event) =>
                 {
                     reject(event);
                 }
@@ -543,7 +543,7 @@ export class RecordSetter
                 this.#isInitialized = false;
                 resolve(true);
             };
-            deleteRequest.onerror = (error) =>
+            deleteRequest.onerror = (error: unknown) =>
             {
                 console.error(error);
                 resolve(false);
@@ -616,13 +616,13 @@ export class RecordSetter
         {
             const objectStore = transaction.objectStore(storeName);
             const request = objectStore.getAll();
-            request.onsuccess = (event) =>
+            request.onsuccess = (event: Event) =>
             {
                 const record = (event.target as unknown as { result: { value: T[] } }).result;
                 const result = record == null ? [] : record.value;
                 resolve(result);
             }
-            request.onerror = (event) => { reject(event); }
+            request.onerror = (event: Event) => { reject(event); }
         });
         return value;
     }
@@ -635,13 +635,13 @@ export class RecordSetter
         {
             const objectStore = transaction.objectStore(storeName);
             const request = objectStore.get(key);
-            request.onsuccess = (event) =>
+            request.onsuccess = (event: Event) =>
             {
                 const record = (event.target as unknown as { result: { value: T } }).result;
                 const result = record == null ? null : record.value;
                 resolve(result);
             }
-            request.onerror = (event) => { reject(event); }
+            request.onerror = (event: Event) => { reject(event); }
         });
         return value;
     }
@@ -656,12 +656,12 @@ export class RecordSetter
             {
                 const objectStore = transaction.objectStore(storeName);
                 const request = objectStore.get(id);
-                request.onsuccess = (event) =>
+                request.onsuccess = (event: Event) =>
                 {
                     const record = (event.target as unknown as { result: { value: T } }).result;
                     resolve(record == null ? null : record.value);
                 }
-                request.onerror = (event) => { reject(event); }
+                request.onerror = (event: Event) => { reject(event); }
             }));
         }
 
@@ -678,12 +678,12 @@ export class RecordSetter
         {
             const objectStore = transaction.objectStore(storeName);
             const request = (value == undefined) ? objectStore.delete(key) : objectStore.put({key, value});
-            request.onsuccess = (event) =>
+            request.onsuccess = (event: Event) =>
             {
                 const value = (event.target as unknown as { result: T }).result;
                 resolve(value);
             }
-            request.onerror = (event) => { reject(event); }
+            request.onerror = (event: Event) => { reject(event); }
         });
         return result;
     }
@@ -700,12 +700,12 @@ export class RecordSetter
             promises.push(new Promise((innerResolve, innerReject) =>
             {
                 const request = (value.value == undefined) ? objectStore.delete(value.key) : objectStore.put(value);
-                request.onsuccess = (event) =>
+                request.onsuccess = (event: Event) =>
                 {
                     const value = (event.target as unknown as { result: unknown }).result;
                     innerResolve(value);
                 }
-                request.onerror = (event) => { innerReject(event); }
+                request.onerror = (event: Event) => { innerReject(event); }
             }));
         }
 
@@ -726,12 +726,12 @@ export class RecordSetter
                 promises.push(new Promise((innerResolve, innerReject) =>
                 {
                     const request = objectStore.delete(key);
-                    request.onsuccess = (event) =>
+                    request.onsuccess = (event: Event) =>
                     {
                         const value = (event.target as unknown as { result: unknown }).result;
                         innerResolve(value);
                     }
-                    request.onerror = (event) => { innerReject(event); }
+                    request.onerror = (event: Event) => { innerReject(event); }
                 }));
 
             }
@@ -749,12 +749,12 @@ export class RecordSetter
         {
             const objectStore = transaction.objectStore(storeName);
             const request = (keys.length == 0) ? objectStore.getAll() : objectStore.get(keys);
-            request.onsuccess = (event) =>
+            request.onsuccess = (event: Event) =>
             {
                 const record = (event.target as unknown as { result: { key: string }[] }).result;
                 resolve((record == null) ? [] : record.map((item: {key: string}) => { return item.key }));
             }
-            request.onerror = (event) => { reject(event); }
+            request.onerror = (event: Event) => { reject(event); }
         });
         return value as string[];
     }
@@ -768,12 +768,12 @@ export class RecordSetter
         {
             const objectStore = transaction.objectStore(storeName);
             const request = objectStore.put({key});
-            request.onsuccess = (event) =>
+            request.onsuccess = (event: Event) =>
             {
                 const value = (event.target as unknown as { result: unknown }).result;
                 resolve(value);
             }
-            request.onerror = (event) => { reject(event); }
+            request.onerror = (event: Event) => { reject(event); }
         });
         return result;
     }
@@ -789,12 +789,12 @@ export class RecordSetter
             {
                 const objectStore = transaction.objectStore(storeName);
                 const request = objectStore.put({key});
-                request.onsuccess = (event) =>
+                request.onsuccess = (event: Event) =>
                 {
                     const value = (event.target as unknown as { result: string }).result;
                     resolve(value);
                 }
-                request.onerror = (event) => { reject(event); }
+                request.onerror = (event: Event) => { reject(event); }
             }));
         }
 
@@ -811,12 +811,12 @@ export class RecordSetter
         {
             const objectStore = transaction.objectStore(storeName);
             const request = objectStore.delete(key);
-            request.onsuccess = (event) =>
+            request.onsuccess = (event: Event) =>
             {
                 const value = (event.target as unknown as { result: unknown }).result;
                 resolve(value);
             }
-            request.onerror = (event) => { reject(event); }
+            request.onerror = (event: Event) => { reject(event); }
         });
     }
     async clearStoreKeys(storeName: string)
@@ -828,12 +828,12 @@ export class RecordSetter
         {
             const objectStore = transaction.objectStore(storeName);
             const request = objectStore.clear();
-            request.onsuccess = (event) =>
+            request.onsuccess = (event: Event) =>
             {
                 const value = (event.target as unknown as { result: unknown }).result;
                 resolve(value);
             }
-            request.onerror = (event) => { reject(event); }
+            request.onerror = (event: Event) => { reject(event); }
         });
     }
     

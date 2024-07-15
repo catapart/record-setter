@@ -1,5 +1,0 @@
-{
-  "name": "@magnit/record-setter",
-  "version": "0.1.0",
-  "exports": "./record-setter.ts"
-}
