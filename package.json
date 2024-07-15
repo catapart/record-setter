@@ -3,8 +3,8 @@
   "version": "1.0.2",
   "description": "Asynchronous indexedDB wrapper",
   "main": "record-setter.ts",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "module": "dist/record-setter.mjs",
+  "types": "dist/record-setter.d.ts",
   "scripts": {
     "build": "tsup record-setter.ts --format cjs,esm --dts --clean && tsc --outDir ./vanilla",
     "minify": "minify ./dist/record-setter.js > ./dist/record-setter.min.js",
