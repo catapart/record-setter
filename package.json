@@ -1,0 +1,12 @@
+{
+  "name": "record-setter",
+  "version": "1.0.0",
+  "description": "Asynchronous indexedDB wrapper",
+  "main": "record-setter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["indexedDB", "browser", "js", "async", "asynchronous", "local storage", "data", "data store", "save", "record"],
+  "author": "catapart",
+  "license": "CC0-1.0"
+}
