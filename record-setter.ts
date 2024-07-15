@@ -1,5 +1,5 @@
-import { DataRecord } from "./data-record";
-import { RecordStore, RecordStoreOptions } from "./record-store";
+import { DataRecord } from "./data-record.ts";
+import { RecordStore, RecordStoreOptions } from "./record-store.ts";
 
 export type RecordProperty = string|number|boolean|Blob;
 

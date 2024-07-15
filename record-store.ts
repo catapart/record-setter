@@ -1,4 +1,4 @@
-import { DataRecord } from "./data-record";
+import { DataRecord } from "./data-record.ts";
 
 export interface RecordStoreOptions
 {
