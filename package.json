@@ -1,6 +1,6 @@
 {
   "name": "record-setter",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Asynchronous indexedDB wrapper",
   "main": "record-setter.ts",
   "module": "dist/index.mjs",
