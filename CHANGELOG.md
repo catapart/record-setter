@@ -1,5 +1,11 @@
 # record-setter
 
+## 1.0.3
+
+### Patch Changes
+
+- 51b2f49: additional entry point updates
+
 ## 1.0.2
 
 ### Patch Changes
