@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', init);
 - <s>Safari</s> (Has not been tested; should be supported, based on indexedDB support)
 
 ## Design
-Record Setter is designed to work with "records" in a similar way to structured databases like SQL/SQLite. IndexedDB is capable of storing a wider variety of object types, but Record Setter is designed to be make porting data setting to other languages as easy as possible.
+Record Setter is a general purpose indexedDB wrapper with multiple methods of storing data, but includes a `RecordStore` object type that is designed to work with "records" in a similar way to structured databases like SQL/SQLite. IndexedDB is capable of storing a wider variety of object types, but `RecordStore`s are designed to make porting data settings to other languages as easy as possible.
 
 To achieve this, Record Setter uses object stores within indexedDB as analogues to SQL's "tables". These tables are defined in a schema, like actual database tables are, with two important differences:  
  - Actual queries are not available on indexedDB object stores, so cursors are used to match indexes which must be explicitly defined in order to use them for lookups. Put more simply: You have to tell the "database" which properties of an object you are going to query on, and they are not allowed to be `boolean` values(There are other rules, too: https://developer.mozilla.org/en-US/docs/Web/API/IDBIndex).  
@@ -418,7 +418,7 @@ As an example of the intention: think of a progressive web app that runs nativel
 Records are ways to structure data and they can get really messy, really fast, if you try to treat them like "Objects" or "Classes" or anything other than just dumb data stores.  
 This includes trying to add getter/setters, or helper functions to normalize how you access that data.
 
-General practice separates "Record" objects from "Runtime" objects to prevent complicating Records. Record Setter only deals with "Record" type objects and should not be used with non-Record types.
+General practice separates "Record" objects from "Runtime" objects to prevent complicating Records. Record Setter `RecordStore`s only deal with "Record" type objects and should not be used with non-Record types.
 
 There are a lot of patterns for translating "Record" objects into "Runtime" versions of those objects and they often depend on the rest of your architecture. If you're using MVC, you might just pass a record to a controller and have that be enough. If you're doing more direct object handling, you may want to force an object to use a record in its constructor, or supply the record data in an initialization function, after it's been constructed.
 
