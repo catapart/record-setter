@@ -1,5 +1,11 @@
 # record-setter
 
+## 1.0.5
+
+### Patch Changes
+
+- 17b9053: added link to repo
+
 ## 1.0.4
 
 ### Patch Changes
