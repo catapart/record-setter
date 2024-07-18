@@ -1,5 +1,12 @@
 # record-setter
 
+## 1.0.4
+
+### Patch Changes
+
+- 64d95fd: reconciled package file with main branch
+- 8778465: updated version to make npm accept the package
+
 ## 0.0.1
 
 ### Patch Changes
