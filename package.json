@@ -1,6 +1,6 @@
 {
   "name": "record-setter",
-  "version": "1.0.3",
+  "version": "0.0.0",
   "description": "Asynchronous indexedDB wrapper",
   "main": "record-setter.ts",
   "module": "dist/record-setter.mjs",
@@ -9,8 +9,8 @@
     "build": "tsup record-setter.ts --format cjs,esm --dts --clean && tsc --outDir ./vanilla",
     "minify": "minify ./dist/record-setter.js > ./dist/record-setter.min.js",
     "lint": "tsc",
-    "package": "tsup record-setter.ts --format cjs,esm --dts && minify ./dist/record-setter.js > ./dist/record-setter.min.js && tsc --outDir ./vanilla",
-    "release": "tsup record-setter.ts --format cjs,esm --dts && minify ./dist/record-setter.js > ./dist/record-setter.min.js && tsc --outDir ./vanilla && changeset publish"
+    "package": "tsup record-setter.ts --format cjs,esm --dts --clean && tsc --outDir ./vanilla && minify ./vanilla/record-setter.js > ./vanilla/record-setter.min.js",
+    "release": "tsup record-setter.ts --format cjs,esm --dts && tsc --outDir ./vanilla && minify ./vanilla/record-setter.js > ./vanilla/record-setter.min.js && changeset publish"
   },
   "keywords": [
     "indexedDB",
