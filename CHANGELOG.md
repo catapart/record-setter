@@ -1,5 +1,11 @@
 # record-setter
 
+## 1.0.6
+
+### Patch Changes
+
+- 1e372aa: fixed outdated information and typos in readme
+
 ## 1.0.5
 
 ### Patch Changes
