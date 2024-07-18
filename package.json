@@ -26,6 +26,10 @@
   ],
   "author": "catapart",
   "license": "CC0-1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/catapart/record-setter.git"
+  },
   "devDependencies": {
     "@changesets/cli": "^2.27.7",
     "minify": "^11.4.0",
